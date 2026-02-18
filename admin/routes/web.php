@@ -17,7 +17,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Категории
     Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
 
-    // Здесь добавятся другие routes: products, orders
+    // Продукты
+    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
+
+    // Здесь добавятся другие routes: orders
 });
 
 Auth::routes(); // Включаем стандартные маршруты аутентификации
