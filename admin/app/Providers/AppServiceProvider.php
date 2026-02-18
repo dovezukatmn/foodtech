@@ -78,11 +78,19 @@ class AppServiceProvider extends ServiceProvider
 
                 // Заказы
                 $event->menu->add('ПРОДАЖИ');
+
+                $newOrdersCount = 0;
+                try {
+                    $newOrdersCount = \App\Models\Order::where('status', 'CREATED')->count();
+                } catch (\Exception $e) {
+                    \Log::error('Menu building error: ' . $e->getMessage());
+                }
+
                 $event->menu->add([
                     'text' => 'Заказы',
                     'url'  => 'admin/orders',
                     'icon' => 'fas fa-fw fa-shopping-cart',
-                    'label' => \App\Models\Order::where('status', 'new')->count(),
+                    'label' => $newOrdersCount,
                     'label_color' => 'success',
                     'active' => ['admin/orders*'],
                 ]);
