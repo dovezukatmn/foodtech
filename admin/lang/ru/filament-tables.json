@@ -1,0 +1,112 @@
+{
+    "columns": {
+        "tags": {
+            "more": "и ещё :count"
+        },
+        "messages": {
+            "copied": "Скопировано"
+        }
+    },
+    "actions": {
+        "disable_reordering": {
+            "label": "Завершить сортировку"
+        },
+        "enable_reordering": {
+            "label": "Сортировать"
+        },
+        "filter": {
+            "label": "Фильтр"
+        },
+        "open_bulk_actions": {
+            "label": "Действия"
+        },
+        "toggle_columns": {
+            "label": "Столбцы"
+        }
+    },
+    "empty": {
+        "heading": "Записи не найдены",
+        "description": "Создайте запись, чтобы начать."
+    },
+    "filters": {
+        "actions": {
+            "apply": {
+                "label": "Применить фильтры"
+            },
+            "remove": {
+                "label": "Сбросить фильтр"
+            },
+            "remove_all": {
+                "label": "Сбросить все фильтры"
+            },
+            "reset": {
+                "label": "Сбросить"
+            }
+        },
+        "indicator": "Активные фильтры",
+        "multi_select": {
+            "placeholder": "Все"
+        },
+        "select": {
+            "placeholder": "Все"
+        },
+        "trinary": {
+            "placeholder": "Все",
+            "true": "Да",
+            "false": "Нет"
+        }
+    },
+    "grouping": {
+        "fields": {
+            "group": {
+                "label": "Группировать по",
+                "placeholder": "Группировать по"
+            },
+            "direction": {
+                "label": "Направление",
+                "placeholder": "Направление"
+            }
+        }
+    },
+    "reorder_indicator": "Перетащите записи в нужном порядке.",
+    "selection_indicator": {
+        "selected_count": "Выбрано записей: :count",
+        "actions": {
+            "select_all": {
+                "label": "Выбрать все :count"
+            },
+            "deselect_all": {
+                "label": "Снять выделение"
+            }
+        }
+    },
+    "sorting": {
+        "fields": {
+            "column": {
+                "label": "Сортировать по"
+            },
+            "direction": {
+                "label": "Направление"
+            }
+        }
+    },
+    "summary": {
+        "heading": "Итого",
+        "subheadings": {
+            "all": "Все :label",
+            "group": "Итого :group",
+            "page": "Эта страница"
+        },
+        "summarizers": {
+            "average": {
+                "label": "Среднее"
+            },
+            "count": {
+                "label": "Количество"
+            },
+            "sum": {
+                "label": "Сумма"
+            }
+        }
+    }
+}

@@ -1,0 +1,54 @@
+{
+    "components": {
+        "pagination": {
+            "label": "Навигация по страницам",
+            "overview": "Показаны с {first} по {last} из {total} записей",
+            "fields": {
+                "records_per_page": {
+                    "label": "на стр.",
+                    "options": {
+                        "all": "Все"
+                    }
+                }
+            },
+            "actions": {
+                "go_to_page": {
+                    "label": "Перейти к странице :page"
+                },
+                "first": {
+                    "label": "Первая"
+                },
+                "last": {
+                    "label": "Последняя"
+                },
+                "next": {
+                    "label": "Следующая"
+                },
+                "previous": {
+                    "label": "Предыдущая"
+                }
+            }
+        }
+    },
+    "notifications": {
+        "saved": {
+            "title": "Сохранено"
+        },
+        "deleted": {
+            "title": "Удалено"
+        },
+        "created": {
+            "title": "Создано"
+        },
+        "updated": {
+            "title": "Обновлено"
+        },
+        "restored": {
+            "title": "Восстановлено"
+        },
+        "throttled": {
+            "title": "Слишком много попыток",
+            "body": "Попробуйте снова через :seconds секунд."
+        }
+    }
+}

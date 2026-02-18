@@ -1,0 +1,14 @@
+{
+  "customer": {
+    "name": "Test User",
+    "phone": "+79991234567"
+  },
+  "items": [
+    {
+      "productId": "019ec5d5-2fa2-41b7-8552-5209fd77438b",
+      "quantity": 2
+    }
+  ],
+  "deliveryAddress": "Test Street 1",
+  "comment": "Test Order"
+}

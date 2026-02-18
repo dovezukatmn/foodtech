@@ -1,0 +1,93 @@
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-app_password}
+      POSTGRES_DB: ${POSTGRES_DB:-foodtech_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-app} -d ${POSTGRES_DB:-foodtech_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+
+  backend:
+    build: ./backend
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_SERVER=db
+      - POSTGRES_USER=${POSTGRES_USER:-app}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-app_password}
+      - POSTGRES_DB=${POSTGRES_DB:-foodtech_db}
+      - REDIS_HOST=redis
+      - IIKO_API_LOGIN=${IIKO_API_LOGIN:-placeholder}
+      - IIKO_API_BASE_URL=${IIKO_API_BASE_URL:-https://api-ru.iiko.services}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    volumes:
+      - ./backend:/app
+
+  bot:
+    build: ./bot
+    restart: always
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN:-placeholder}
+      - BACKEND_URL=http://backend:8000/api/v1
+    depends_on:
+      - backend
+    volumes:
+      - ./bot:/app
+
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    image: foodtech-admin
+    restart: always
+    working_dir: /var/www
+    volumes:
+      - ./admin:/var/www
+    environment:
+      - APP_NAME=FoodTechAdmin
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_URL=http://localhost:8080
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=${POSTGRES_DB:-foodtech_db}
+      - DB_USERNAME=${POSTGRES_USER:-app}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-app_password}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./admin:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - admin
+
+volumes:
+  postgres_data:

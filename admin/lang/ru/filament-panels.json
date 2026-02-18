@@ -1,0 +1,24 @@
+{
+    "layout": {
+        "actions": {
+            "sidebar": {
+                "collapse": "Свернуть боковую панель",
+                "expand": "Развернуть боковую панель"
+            }
+        }
+    },
+    "pages": {
+        "dashboard": {
+            "title": "Панель управления"
+        }
+    },
+    "resources": {
+        "label": "Ресурс",
+        "plural_label": "Ресурсы"
+    },
+    "widgets": {
+        "account": {
+            "label": "Аккаунт"
+        }
+    }
+}

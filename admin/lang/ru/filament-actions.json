@@ -1,0 +1,46 @@
+{
+    "modal": {
+        "confirmation": "Вы уверены?",
+        "heading": "Подтверждение",
+        "actions": {
+            "cancel": {
+                "label": "Отмена"
+            },
+            "confirm": {
+                "label": "Подтвердить"
+            },
+            "submit": {
+                "label": "Отправить"
+            }
+        }
+    },
+    "actions": {
+        "cancel": {
+            "label": "Отмена"
+        },
+        "create": {
+            "label": "Создать"
+        },
+        "delete": {
+            "label": "Удалить"
+        },
+        "edit": {
+            "label": "Изменить"
+        },
+        "save": {
+            "label": "Сохранить"
+        },
+        "view": {
+            "label": "Просмотр"
+        },
+        "restore": {
+            "label": "Восстановить"
+        },
+        "force_delete": {
+            "label": "Удалить навсегда"
+        },
+        "replicate": {
+            "label": "Дублировать"
+        }
+    }
+}

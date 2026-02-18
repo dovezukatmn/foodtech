@@ -1,0 +1,36 @@
+{
+    "title": "Вход в систему",
+    "heading": "Войти в аккаунт",
+    "actions": {
+        "register": {
+            "label": "Зарегистрироваться",
+            "before": "или"
+        },
+        "request_password_reset": {
+            "label": "Забыли пароль?"
+        },
+        "authenticate": {
+            "label": "Войти"
+        }
+    },
+    "form": {
+        "email": {
+            "label": "Электронная почта"
+        },
+        "password": {
+            "label": "Пароль"
+        },
+        "remember": {
+            "label": "Запомнить меня"
+        }
+    },
+    "messages": {
+        "failed": "Неверный логин или пароль."
+    },
+    "notifications": {
+        "throttled": {
+            "title": "Слишком много попыток входа",
+            "body": "Попробуйте снова через :seconds секунд."
+        }
+    }
+}

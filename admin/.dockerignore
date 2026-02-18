@@ -1,0 +1,13 @@
+/vendor
+/node_modules
+/.env
+/.env.backup
+/storage/*.key
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+.phpactor.json
+.php-cs-fixer.cache
+npm-debug.log
+yarn-error.log

@@ -1,0 +1,105 @@
+# =============================================
+# FoodTech — Production Docker Compose
+# =============================================
+# Использование: docker compose -f docker-compose.prod.yml up -d
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-foodtech}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMeNow}
+      POSTGRES_DB: ${POSTGRES_DB:-foodtech_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-foodtech} -d ${POSTGRES_DB:-foodtech_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    command: redis-server --requirepass ${REDIS_PASSWORD:-foodtech_redis}
+    volumes:
+      - redis_data:/data
+    networks:
+      - internal
+
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    image: foodtech-admin
+    restart: always
+    working_dir: /var/www
+    volumes:
+      - ./admin:/var/www
+      - admin_vendor:/var/www/vendor
+      - admin_node_modules:/var/www/node_modules
+    environment:
+      - APP_NAME=${APP_NAME:-FoodTech}
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=${APP_URL:-http://localhost}
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=${POSTGRES_DB:-foodtech_db}
+      - DB_USERNAME=${POSTGRES_USER:-foodtech}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-ChangeMeNow}
+      - CACHE_DRIVER=redis
+      - SESSION_DRIVER=redis
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-foodtech_redis}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - internal
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./admin:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+      - certbot_data:/var/www/certbot
+    depends_on:
+      - admin
+    networks:
+      - internal
+      - external
+
+  # Certbot для SSL (опционально)
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - certbot_data:/var/www/certbot
+      - ./docker/nginx/ssl:/etc/letsencrypt
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do sleep 12h; certbot renew; done;'"
+    networks:
+      - external
+
+volumes:
+  postgres_data:
+  redis_data:
+  admin_vendor:
+  admin_node_modules:
+  certbot_data:
+
+networks:
+  internal:
+    driver: bridge
+  external:
+    driver: bridge
