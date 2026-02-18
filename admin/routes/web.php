@@ -24,7 +24,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('modifier-groups', \App\Http\Controllers\Admin\ModifierGroupController::class);
     Route::resource('modifiers', \App\Http\Controllers\Admin\ModifierController::class);
 
-    // Здесь добавятся другие routes: orders
+    // Заказы
+    Route::get('orders/kanban', [\App\Http\Controllers\Admin\OrderController::class, 'kanban'])->name('orders.kanban');
+    Route::post('orders/{order}/update-status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.update-status');
+    Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->only(['index', 'show']);
 });
 
 Auth::routes(); // Включаем стандартные маршруты аутентификации
