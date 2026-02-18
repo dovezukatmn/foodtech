@@ -26,17 +26,9 @@ admin/.php-cs-fixer.cache
 admin/public/hot
 admin/public/build/
 
-# === Backend (backend/) ===
-backend/__pycache__/
-backend/.venv/
-backend/venv/
-backend/*.pyc
-
-# === Bot (bot/) ===
-bot/__pycache__/
-bot/.venv/
-bot/venv/
-bot/*.pyc
+# === Python Cache ===
+**/__pycache__/
+**/*.pyc
 
 # === Docker volumes data ===
 docker/nginx/ssl/live/
